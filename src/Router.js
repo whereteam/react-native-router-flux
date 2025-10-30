@@ -22,7 +22,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
 
     // If the app was "woken up" by an external route.
     Linking.getInitialURL().then(url => this.parseDeepURL(url));
@@ -31,7 +31,9 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+    if (this.backHandler && this.backHandler.remove) {
+      this.backHandler.remove();
+    }
     if (this.linkingListener && this.linkingListener.remove) {
       this.linkingListener.remove();
     }
