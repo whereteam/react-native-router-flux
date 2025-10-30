@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
-import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 import Button from 'react-native-button';
 import {Actions} from 'react-native-router-flux';
 
 const propTypes = {
   name: PropTypes.string,
-  sceneStyle: ViewPropTypes.style,
+  sceneStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
   title: PropTypes.string,
 };
 
